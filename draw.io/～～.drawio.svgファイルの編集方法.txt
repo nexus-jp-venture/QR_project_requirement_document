@@ -1,0 +1,6 @@
+■drawio.svgファイルの編集方法
+
+VSCodeで「Draw.io Integration」という拡張機能をインストール
+拡張機能ID： hediet.vscode-drawio
+
+すると編集できるようになります。

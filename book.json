@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        "uml"
+    ],
+    "pluginsConfig": {
+        "uml": {
+            "format": "svg",
+            "charset" : "UTF-8",
+            "nailgun": false
+        }
+    },
+    "uml": {
+      "format": "svg",
+      "charset" : "UTF-8",
+      "nailgun": false
+    },
+    "language": "ja"
+}

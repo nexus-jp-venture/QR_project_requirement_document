@@ -1,0 +1,48 @@
+name: release PDF
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: chmod for github actions docker
+      run: chmod -R 777 .
+
+    - name: Generate PDF
+      run: docker run --rm -v .:/honkit ghcr.io/nishidemasami/markdown-docs-dockerfile:v1.1.35 npx honkit pdf ./ ./document.pdf
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@v3
+      with:
+        name: documents
+        path: ./document.pdf
+
+    - name: Release Document
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Release Document
+        tag_name: relrase_document
+        generate_release_notes: true
+        files: ./document.pdf
+
+   # - name: Generate pages
+   #   run: docker run --rm -v .:/honkit ghcr.io/nishidemasami/markdown-docs-dockerfile:v1.1.35 npx honkit build
+   #
+   # - name: Push to gh-pages
+   #   uses: peaceiris/actions-gh-pages@v3
+   #   with:
+   #     github_token: ${{ secrets.GITHUB_TOKEN }}
+   #     publish_branch: gh-pages
+   #     publish_dir: _book/
